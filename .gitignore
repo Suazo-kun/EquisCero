@@ -1,0 +1,10 @@
+# Ignore
+*.res
+*.o
+*.lib
+*.a
+*.out
+*.exe
+*.dll
+*.so
+temp.*

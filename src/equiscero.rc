@@ -1,0 +1,31 @@
+#include <winver.h>
+#pragma code_page(65001)
+
+1 ICON "res\\icon.ico"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
+FILEOS          0x4
+FILETYPE        0x1
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080A04E4"
+        BEGIN
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "ProductVersion", "1.0.0.0"
+            VALUE "OriginalFilename", "EquisCero.exe"
+            VALUE "InternalName", "EquisCero.exe"
+            VALUE "FileDescription", "Oh, juego de equis y cero mi loco"
+            VALUE "CompanyName", "Suazo-kun"
+            VALUE "LegalCopyright", "El copyright es pa' pájaro"
+            VALUE "ProductName", "EquisCero"
+        END
+    END
+
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x80A, 1252
+    END
+END
