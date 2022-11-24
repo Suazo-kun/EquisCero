@@ -10,7 +10,7 @@ IF "%~1" == "--testear" (
 cd %BAT_RUTA%
 
 windres -i src\equiscero.rc -o equiscero.res --output-format=coff
-gcc -O2 -Wall src\main.c src\equiscero.c equiscero.res -o "%RUTA_ACTUAL%\EquisCero.exe" %testeararg%
+gcc -O2 -Wall src\main.c src\equiscero.c src\imprimircolor.c equiscero.res -o "%RUTA_ACTUAL%\EquisCero.exe" %testeararg%
 
 del equiscero.res
 
