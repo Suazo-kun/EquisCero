@@ -15,6 +15,110 @@ unsigned char ObtenerNumeroAleatorio(unsigned char min, unsigned char max) {
     return ((float)rand()) / RAND_MAX * max + min;
 }
 
+unsigned char RealizarJugadaPorPatron(char tabla[9]) {
+    unsigned char jugadas_cantidad = 0;
+    unsigned char i;
+
+    for (i=0;i<9;i++) {
+        if ((tabla[i] == O_CHAR) || (tabla[i] == X_CHAR)) {
+            jugadas_cantidad++;
+        }
+    }
+
+    if (jugadas_cantidad == 1) {
+        if (strcmp(tabla, "    x    ") == 0) {
+            tabla[2] = O_CHAR;
+            return 1;
+
+        } else if (
+            (strcmp(tabla, "x        ") == 0) || (strcmp(tabla, "  x      ") == 0) ||
+            (strcmp(tabla, "      x  ") == 0) || (strcmp(tabla, "        x") == 0)) {
+            tabla[4] = O_CHAR;
+            return 1;
+
+        } else if (strcmp(tabla, " x       ") == 0) {
+            tabla[7] = O_CHAR;
+            return 1;
+
+        } else if (strcmp(tabla, "   x     ") == 0) {
+            tabla[5] = O_CHAR;
+            return 1;
+
+        } else if (strcmp(tabla, "     x   ") == 0) {
+            tabla[3] = O_CHAR;
+            return 1;
+
+        } else if (strcmp(tabla, "       x ") == 0) {
+            tabla[1] = O_CHAR;
+            return 1;
+        }
+
+    } else if (jugadas_cantidad == 3) {
+        if ((strcmp(tabla, "x   o   x") == 0) || (strcmp(tabla, "  x o x  ") == 0)) {
+            tabla[ObtenerNumeroAleatorio(0, 3) * 2 + 1] = O_CHAR;
+            return 1;
+        }
+
+        if (tabla[4] == X_CHAR) {
+            if ((tabla[0] == X_CHAR) && (tabla[8] == O_CHAR)) {
+                tabla[6] = O_CHAR;
+                return 1;
+            } else if ((tabla[2] == X_CHAR) && (tabla[6] == O_CHAR)) {
+                tabla[8] = O_CHAR;
+                return 1;
+            } else if ((tabla[6] == X_CHAR) && (tabla[2] == O_CHAR)) {
+                tabla[0] = O_CHAR;
+                return 1;
+            } else if ((tabla[8] == X_CHAR) && (tabla[0] == O_CHAR)) {
+                tabla[2] = O_CHAR;
+                return 1;
+            }
+
+            if ((tabla[1] == X_CHAR) && (tabla[7] == O_CHAR)) {
+                tabla[ObtenerNumeroAleatorio(0, 1) ? 0 : 2] = O_CHAR;
+                return 1;
+            } else if ((tabla[7] == X_CHAR) && (tabla[1] == O_CHAR)) {
+                tabla[ObtenerNumeroAleatorio(0, 1) ? 6 : 8] = O_CHAR;
+                return 1;
+            } else if ((tabla[3] == X_CHAR) && (tabla[5] == O_CHAR)) {
+                tabla[ObtenerNumeroAleatorio(0, 1) ? 0 : 6] = O_CHAR;
+                return 1;
+            } else if ((tabla[5] == X_CHAR) && (tabla[3] == O_CHAR)) {
+                tabla[ObtenerNumeroAleatorio(0, 1) ? 2 : 8] = O_CHAR;
+                return 1;
+            }
+        }
+
+        if ((tabla[1] == X_CHAR) && (tabla[8] == X_CHAR)) {
+            tabla[2] = O_CHAR;
+            return 1;
+        } else if ((tabla[1] == X_CHAR) && (tabla[6] == X_CHAR)) {
+            tabla[0] = O_CHAR;
+            return 1;
+        } else if ((tabla[5] == X_CHAR) && (tabla[0] == X_CHAR)) {
+            tabla[2] = O_CHAR;
+            return 1;
+        } else if ((tabla[5] == X_CHAR) && (tabla[6] == X_CHAR)) {
+            tabla[8] = O_CHAR;
+            return 1;
+        } else if ((tabla[7] == X_CHAR) && (tabla[2] == X_CHAR)) {
+            tabla[8] = O_CHAR;
+            return 1;
+        } else if ((tabla[7] == X_CHAR) && (tabla[0] == X_CHAR)) {
+            tabla[6] = O_CHAR;
+            return 1;
+        } else if ((tabla[3] == X_CHAR) && (tabla[2] == X_CHAR)) {
+            tabla[0] = O_CHAR;
+            return 1;
+        } else if ((tabla[3] == X_CHAR) && (tabla[8] == X_CHAR)) {
+            tabla[6] = O_CHAR;
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 unsigned char RealizarJugada(char tabla[9], const char caracter) {
     char temp[4];
     char patron1[] = {caracter, caracter};
@@ -138,49 +242,10 @@ dificultad_2: // Por aleatoriedad y algoritmo.
     goto fin;
 
 dificultad_3: // Por algoritmo (y aleatoriedad en algunos casos).
-    unsigned char jugadas_cantidad = 0;
-
-    for (unsigned char i=0;i<9;i++) {
-        if ((tabla[i] == O_CHAR) || (tabla[i] == X_CHAR)) {
-            jugadas_cantidad++;
-        }
-    }
-
-    if (jugadas_cantidad == 1) {
-        if (strcmp(tabla, "    x    ") == 0) {
-            tabla[2] = O_CHAR;
-            goto fin;
-
-        } else if (
-            (strcmp(tabla, "x        ") == 0) || (strcmp(tabla, "  x      ") == 0) ||
-            (strcmp(tabla, "      x  ") == 0) || (strcmp(tabla, "        x") == 0)) {
-            tabla[4] = O_CHAR;
-            goto fin;
-
-        } else if (strcmp(tabla, " x       ") == 0) {
-            tabla[7] = O_CHAR;
-            goto fin;
-
-        } else if (strcmp(tabla, "   x     ") == 0) {
-            tabla[5] = O_CHAR;
-            goto fin;
-
-        } else if (strcmp(tabla, "     x   ") == 0) {
-            tabla[3] = O_CHAR;
-            goto fin;
-
-        } else if (strcmp(tabla, "       x ") == 0) {
-            tabla[1] = O_CHAR;
-            goto fin;
-        }
-    } else if (jugadas_cantidad == 3) {
-        if ((strcmp(tabla, "x   o   x") == 0) || (strcmp(tabla, "  x o x  ") == 0)) {
-            tabla[ObtenerNumeroAleatorio(0, 3) * 2 + 1] = O_CHAR;
-            goto fin;
-        }
-    }
-
-    if (RealizarJugada(tabla, O_CHAR)) {
+    
+    if (RealizarJugadaPorPatron(tabla)) {
+        goto fin;
+    } else if (RealizarJugada(tabla, O_CHAR)) {
         goto fin;
     } else if (RealizarJugada(tabla, X_CHAR)) {
         goto fin;

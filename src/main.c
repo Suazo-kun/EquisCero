@@ -354,4 +354,28 @@ void Test() {
     ImprimirTabla(); wprintf(L"\n");
     TurnoDeLaPC(tabla, 3);
     ImprimirTabla(); wprintf(L"\n");
+
+    wprintf(L"Test 12:\n");
+    LimpiarTabla();
+    tabla[1] = O_CHAR;
+    tabla[2] = tabla[7] = X_CHAR;
+    ImprimirTabla(); wprintf(L"\n");
+    TurnoDeLaPC(tabla, 3);
+    ImprimirTabla(); wprintf(L"\n");
+
+    wprintf(L"Test 13:\n");
+    LimpiarTabla();
+    tabla[1] = O_CHAR;
+    tabla[4] = tabla[7] = X_CHAR;
+    ImprimirTabla(); wprintf(L"\n");
+    TurnoDeLaPC(tabla, 3);
+    ImprimirTabla(); wprintf(L"\n");
+
+    wprintf(L"Test 14:\n");
+    LimpiarTabla();
+    tabla[2] = O_CHAR;
+    tabla[4] = tabla[6] = X_CHAR;
+    ImprimirTabla(); wprintf(L"\n");
+    TurnoDeLaPC(tabla, 3);
+    ImprimirTabla(); wprintf(L"\n");
 }
