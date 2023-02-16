@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
 #include <wchar.h>
+#include <locale.h>
 #include "equiscero.h"
 
 #if (defined __WIN32__) || (defined _WIN32)
@@ -18,11 +20,24 @@
 
 #define limpiar() system("clear")
 #define pausa() getchar()
+
+#define NEGROYMORADO "35;40"
+#define NEGROYAMARILLO "33;40"
+#define NEGROYBLANCO "37;40"
+#define NEGROYROJO "31;40"
+#define NEGROYAZUL "34;40"
+
 #endif
 
 extern void ObtenerColoresOriginales();
+#if (defined __WIN32__) || (defined _WIN32)
 extern void EstablecerColores(int color);
+#else
+extern void EstablecerColores(char *color);
+#endif
 extern void RestablecerColores();
+
+void Test();
 
 char tabla[9];
 unsigned char dificultad = 0;
@@ -260,11 +275,14 @@ void Iniciar() {
     RestablecerColores();
 }
 
-void Test();
-
 int main() {
     ObtenerColoresOriginales();
+
+#if (defined __WIN32__) || (defined _WIN32)
     _setmode(_fileno(stdout), _O_U8TEXT);
+#else
+    setlocale(LC_CTYPE, "es_DO.UTF-8");
+#endif
 
 #ifdef TESTEAR
     Test();

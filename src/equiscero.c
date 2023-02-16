@@ -126,7 +126,7 @@ unsigned char RealizarJugada(char tabla[9], const char caracter) {
     unsigned char i;
 
     for (i=0;i<9;i+=3) { 
-        snprintf(temp, 3, tabla+i);
+        snprintf(temp, 3, "%s", tabla+i);
 
         // Evalúa: "xx ".
         if ((strncmp(temp, patron1, 2) == 0) && (tabla[2+i] == ' ')) {
@@ -134,7 +134,7 @@ unsigned char RealizarJugada(char tabla[9], const char caracter) {
             return 1;
         }
 
-        snprintf(temp, 3, tabla+i+1);
+        snprintf(temp, 3, "%s", tabla+i+1);
 
         // Evalúa: " xx".
         if ((strncmp(temp, patron1, 2) == 0) && (tabla[i] == ' ')) {
@@ -142,7 +142,7 @@ unsigned char RealizarJugada(char tabla[9], const char caracter) {
             return 1;
         }
 
-        snprintf(temp, 4, tabla+i);
+        snprintf(temp, 4, "%s", tabla+i);
 
         // Evalúa: "x x".
         if (strncmp(temp, patron2, 3) == 0) {
@@ -218,7 +218,7 @@ void TurnoDeLaPC(char *tabla, unsigned char dificultad) {
             goto fin;
     }
 
-dificultad_1: // Por aleatoriedad.
+dificultad_1: ; // Por aleatoriedad.
     unsigned char casilla;
 
     while (1) {
@@ -232,7 +232,7 @@ dificultad_1: // Por aleatoriedad.
 
     goto fin;
 
-dificultad_2: // Por aleatoriedad y algoritmo.
+dificultad_2: ; // Por aleatoriedad y algoritmo.
     if (ObtenerNumeroAleatorio(1, 2) == 1) {
         goto dificultad_1;
     } else {
@@ -241,7 +241,7 @@ dificultad_2: // Por aleatoriedad y algoritmo.
 
     goto fin;
 
-dificultad_3: // Por algoritmo (y aleatoriedad en algunos casos).
+dificultad_3: ; // Por algoritmo (y aleatoriedad en algunos casos).
     
     if (RealizarJugadaPorPatron(tabla)) {
         goto fin;
@@ -254,7 +254,7 @@ dificultad_3: // Por algoritmo (y aleatoriedad en algunos casos).
     // En caso de no cumplirse ninguna condición.
     goto dificultad_1;
 
-fin:
+fin: ;
 }
 
 unsigned char EvaluarTabla(const char tabla[9]) {
@@ -262,7 +262,7 @@ unsigned char EvaluarTabla(const char tabla[9]) {
     char temp[4];
 
     for (i=0;i<9;i+=3) {
-        snprintf(temp, 4, tabla+i);
+        snprintf(temp, 4, "%s", tabla+i);
 
         if (strcmp(temp, "xxx") == 0) {
             return GANASTE;
