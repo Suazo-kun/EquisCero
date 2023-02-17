@@ -281,7 +281,7 @@ int main() {
 #if (defined __WIN32__) || (defined _WIN32)
     _setmode(_fileno(stdout), _O_U8TEXT);
 #else
-    setlocale(LC_CTYPE, "es_DO.UTF-8");
+    setlocale(LC_CTYPE, "en_US.UTF-8");
 #endif
 
 #ifdef TESTEAR
