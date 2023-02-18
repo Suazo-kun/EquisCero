@@ -26,35 +26,32 @@ unsigned char RealizarJugadaPorPatron(char tabla[9]) {
     }
 
     if (jugadas_cantidad == 1) {
-        if (strcmp(tabla, "    x    ") == 0) {
+        if (strncmp(tabla, "    x    ", 9) == 0) {
             tabla[2] = O_CHAR;
             return 1;
 
         } else if (
-            (strcmp(tabla, "x        ") == 0) || (strcmp(tabla, "  x      ") == 0) ||
-            (strcmp(tabla, "      x  ") == 0) || (strcmp(tabla, "        x") == 0)) {
+            (strncmp(tabla, "x        ", 9) == 0) || (strncmp(tabla, "  x      ", 9) == 0) ||
+            (strncmp(tabla, "      x  ", 9) == 0) || (strncmp(tabla, "        x", 9) == 0)) {
             tabla[4] = O_CHAR;
             return 1;
 
-        } else if (strcmp(tabla, " x       ") == 0) {
-            tabla[7] = O_CHAR;
-            return 1;
+        } else {
+            char tabla_temp[] = "         ";
 
-        } else if (strcmp(tabla, "   x     ") == 0) {
-            tabla[5] = O_CHAR;
-            return 1;
+            for (i=1;i<8;i+=2) {
+                if (i > 1) tabla_temp[i-2] = LIMPIO;
+                tabla_temp[i] = X_CHAR;
 
-        } else if (strcmp(tabla, "     x   ") == 0) {
-            tabla[3] = O_CHAR;
-            return 1;
-
-        } else if (strcmp(tabla, "       x ") == 0) {
-            tabla[1] = O_CHAR;
-            return 1;
+                if (strncmp(tabla, tabla_temp, 9) == 0) {
+                    tabla[8-i] = O_CHAR;
+                    return 1;
+                }
+            }
         }
 
     } else if (jugadas_cantidad == 3) {
-        if ((strcmp(tabla, "x   o   x") == 0) || (strcmp(tabla, "  x o x  ") == 0)) {
+        if ((strncmp(tabla, "x   o   x", 9) == 0) || (strncmp(tabla, "  x o x  ", 9) == 0)) {
             tabla[ObtenerNumeroAleatorio(0, 3) * 2 + 1] = O_CHAR;
             return 1;
         }
@@ -89,6 +86,22 @@ unsigned char RealizarJugadaPorPatron(char tabla[9]) {
             }
         }
 
+        for (i=1;i<8;i+=6) {
+            if ((tabla[1*i] == X_CHAR) && (tabla[3] == X_CHAR) && (tabla[7/i] == O_CHAR)) {
+                tabla[i-1] = O_CHAR;
+                return 1;
+            } else if ((tabla[1*i] == X_CHAR) && (tabla[5] == X_CHAR) && (tabla[7/i] == O_CHAR)) {
+                tabla[i+1] = O_CHAR;
+                return 1;
+            } else if ((tabla[i-1?3:5] == X_CHAR) && (tabla[1] == X_CHAR) && (tabla[i-1?5:3] == O_CHAR)) {
+                tabla[i-1?0:2] = O_CHAR;
+                return 1;
+            } else if ((tabla[i-1?3:5] == X_CHAR) && (tabla[7] == X_CHAR) && (tabla[i-1?5:3] == O_CHAR)) {
+                tabla[i-1?6:8] = O_CHAR;
+                return 1;
+            }
+        }
+
         if ((tabla[1] == X_CHAR) && (tabla[8] == X_CHAR)) {
             tabla[2] = O_CHAR;
             return 1;
@@ -114,6 +127,9 @@ unsigned char RealizarJugadaPorPatron(char tabla[9]) {
             tabla[6] = O_CHAR;
             return 1;
         }
+    } else if ((jugadas_cantidad == 5) && (tabla[4] == LIMPIO)) {
+        tabla[4] = O_CHAR;
+        return 1;
     }
 
     return 0;

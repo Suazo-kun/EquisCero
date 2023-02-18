@@ -5,6 +5,8 @@
 #include <locale.h>
 #include "equiscero.h"
 
+#define VERSION L"v1.4.0 (18 feb. 2023)"
+
 #if (defined __WIN32__) || (defined _WIN32)
 #include <windows.h>
 #define limpiar() system("cls")
@@ -160,6 +162,7 @@ void Iniciar() {
     unsigned char mamanema = 0;
 
     limpiar();
+    wprintf(L"%ls\n", VERSION);
     EquisCeroLogo();
 
     while (1) {
@@ -393,6 +396,30 @@ void Test() {
     LimpiarTabla();
     tabla[2] = O_CHAR;
     tabla[4] = tabla[6] = X_CHAR;
+    ImprimirTabla(); wprintf(L"\n");
+    TurnoDeLaPC(tabla, 3);
+    ImprimirTabla(); wprintf(L"\n");
+
+    wprintf(L"Test 15:\n");
+    LimpiarTabla();
+    tabla[2] = tabla[3] = tabla[7] = X_CHAR;
+    tabla[0] = tabla[5] = O_CHAR;
+    ImprimirTabla(); wprintf(L"\n");
+    TurnoDeLaPC(tabla, 3);
+    ImprimirTabla(); wprintf(L"\n");
+
+    wprintf(L"Test 16:\n");
+    LimpiarTabla();
+    tabla[1] = tabla[3] = X_CHAR;
+    tabla[5] = O_CHAR;
+    ImprimirTabla(); wprintf(L"\n");
+    TurnoDeLaPC(tabla, 3);
+    ImprimirTabla(); wprintf(L"\n");
+
+    wprintf(L"Test 17:\n");
+    LimpiarTabla();
+    tabla[5] = tabla[7] = X_CHAR;
+    tabla[1] = O_CHAR;
     ImprimirTabla(); wprintf(L"\n");
     TurnoDeLaPC(tabla, 3);
     ImprimirTabla(); wprintf(L"\n");
